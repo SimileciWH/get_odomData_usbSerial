@@ -54,16 +54,23 @@
   <build_depend>nav_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
   <build_depend>tf</build_depend>
+  <build_depend>serial</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
 
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>nav_msgs</build_export_depend>
   <build_export_depend>geometry_msgs</build_export_depend>
   <build_export_depend>tf</build_export_depend>
+  <build_export_depend>serial</build_export_depend>
 
   <exec_depend>rospy</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>tf</exec_depend>
+  <exec_depend>serial</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
@@ -71,4 +78,5 @@
     <!-- Other tools can request additional information be placed here -->
 
   </export>
+<build_export_depend>message_generation</build_export_depend>
 </package>

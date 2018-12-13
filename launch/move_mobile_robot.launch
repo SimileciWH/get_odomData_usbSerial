@@ -1,0 +1,7 @@
+<launch>
+	<node pkg="getodomdata_serial" type="move_mobile_robot.py" name="move_mobile_robot" output="screen" >
+	<param name="wheel_distance"         value="0.5" />
+	<param name="rate"                   value="5" />
+	<remap from="/cmd_vel" to="/robot0/cmd_vel" />
+</node>
+</launch>

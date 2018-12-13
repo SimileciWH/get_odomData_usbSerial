@@ -8,11 +8,14 @@ project(getodomdata_serial)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  roscpp
   rospy
   nav_msgs
+  std_msgs
   geometry_msgs
   tf
   message_generation
+  serial
 )
 
 ## System dependencies are found with CMake's conventions
@@ -49,10 +52,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-#add_message_files(
-#   FILES
-#   odomdata.msg
-# )
+add_message_files(
+  FILES
+  mobileRobot_velocity.msg
+  mobileRobot_msgs.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -69,10 +73,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-#generate_messages(
-#   DEPENDENCIES
-#   nav_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs  # Or other packages containing msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -105,12 +109,14 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES getodomdata_serial
-#  CATKIN_DEPENDS rospy
-#  nav_msgs
-#  geometry_msgs
-#  tf
-#  message_runtime
+ LIBRARIES getodomdata_serial
+ CATKIN_DEPENDS 
+ rospy
+ std_msgs
+ serial
+ geometry_msgs
+ tf
+ message_runtime
 #  DEPENDS system_lib
 )
 
@@ -121,6 +127,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
+  include ${catkin_INCLUDE_DIRS}
 # include
   ${catkin_INCLUDE_DIRS}
 )
@@ -202,3 +209,12 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
+add_executable(serial_node
+  src/serial_node.cpp
+)
+add_dependencies(serial_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(serial_node
+  ${catkin_LIBRARIES}
+)
